@@ -1,72 +1,112 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
-<button>Click</button>
-    <script type="text/javascript">
-      window.addEventListener('load', function () {
-  // At first, let's check if we have permission for notification
-  // If not, let's ask for it
-  if (window.Notification && Notification.permission !== "granted") {
-    Notification.requestPermission(function (status) {
-      if (Notification.permission !== status) {
-        Notification.permission = status;
-      }
-    });
-  }
-
-  var button = document.getElementsByTagName('button')[0];
-
-  button.addEventListener('click', function () {
-    // If the user agreed to get notified
-    // Let's try to send ten notifications
-    if (window.Notification && Notification.permission === "granted") {
-      var i = 0;
-      // Using an interval cause some browsers (including Firefox) are blocking notifications if there are too much in a certain time.
-      var interval = window.setInterval(function () {
-        // Thanks to the tag, we should only see the "Hi! 9" notification 
-        var n = new Notification("Hi! " + i, {tag: 'soManyNotification'});
-        if (i++ == 9) {
-          window.clearInterval(interval);
-        }
-      }, 200);
-    }
-
-    // If the user hasn't told if he wants to be notified or not
-    // Note: because of Chrome, we are not sure the permission property
-    // is set, therefore it's unsafe to check for the "default" value.
-    else if (window.Notification && Notification.permission !== "denied") {
-      Notification.requestPermission(function (status) {
-        // If the user said okay
-        if (status === "granted") {
-          var i = 0;
-          // Using an interval cause some browsers (including Firefox) are blocking notifications if there are too much in a certain time.
-          var interval = window.setInterval(function () {
-            // Thanks to the tag, we should only see the "Hi! 9" notification 
-            var n = new Notification("Hi! " + i, {tag: 'soManyNotification'});
-            if (i++ == 9) {
-              window.clearInterval(interval);
-            }
-          }, 200);
-        }
-
-        // Otherwise, we can fallback to a regular modal alert
-        else {
-          alert("Hi!");
-        }
-      });
-    }
-
-    // If the user refuses to get notified
-    else {
-      // We can fallback to a regular modal alert
-      alert("Hi!");
-    }
-  });
-});
-    </script>
-  </body>
+<html lang="en">
+<head>
+<meta charset="utf-8" name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0">
+<title>Timer</title>
+</head>
+<body>
+<canvas></canvas>
+<script type="text/javascript">
+alert("Controls\nclick - play/pause\nlong click - reset");
+let c,ctx;
+let last;
+let timer;
+let sound,song;
+let first=true;
+class Timer {
+	constructor(data) {
+		this.data=data;
+		this.round=-1;
+		this.counter=1;
+		this.paused=true;
+	}
+	update(dt) {
+		if(this.paused) return;
+		if((this.counter-=dt)<=0) {
+			if((this.round+=1)>=this.data.length) {
+				this.round=0;
+			}
+			this.counter=this.data[this.round];
+			song.volume=0.3;
+			sound.play();
+		}
+	}
+	reset() {
+		this.paused=true;
+		this.round=0;
+		this.counter=this.data[0];
+	}
+	draw() {
+		const count=this.counter.toFixed(1);
+		const color=count>3?"white":"red";
+		ctx.beginPath();
+		ctx.strokeStyle="white";
+		ctx.lineWidth=10;
+		ctx.arc(c.width/2,c.height/2,80,0,2*Math.PI*this.counter/this.data[this.round]);
+		ctx.stroke();
+		ctx.beginPath();
+		ctx.fillStyle=color;
+		ctx.textAlign="center";
+		ctx.textBaseline="middle";
+		ctx.font="bold 32px Arial";
+		ctx.fillText(String(count),c.width/2,c.height/2);
+	}
+}
+async function main() {
+	await new Promise(resolve=> {
+		let counter=0;
+		sound=new Audio();
+		sound.src="https://www.dropbox.com/s/5219coxepqrhw55/point.ogg?dl=1";
+		song=new Audio();
+		song.src="https://www.dropbox.com/s/llmqux898qv0t8l/Best%20Workout%20Music%20Mix%20%20Gym%20Motivation%20Music%202020%20%20Workout%20Mix%202020%2039.mp3?dl=1";
+		sound.oncanplay=function() {
+			if((counter+=1)>=2) resolve();
+		}
+		song.oncanplay=function() {
+			if((counter+=1)>=2) resolve();
+		}
+	});
+	c=document.querySelector("canvas");
+	ctx=c.getContext("2d");
+	c.width=innerWidth;
+	c.height=innerHeight;
+	c.style.position="fixed";
+	c.style.left="0";
+	c.style.top="0";
+	onresize=function() {
+		c.width=innerWidth;
+		c.height=innerHeight;
+	}
+	sound.onended=function() {
+		song.volume=1;
+	}
+	timer=new Timer([45,15]);
+	addEventListener("click",()=> {
+		if(first) {
+			song.play();
+			song.currentTime=Math.floor(Math.random()*song.duration);
+			song.loop=true;
+		}
+		timer.paused=timer.paused?false:true;
+	});
+	addEventListener("contextmenu",()=>{
+		timer.reset();
+	});
+	requestAnimationFrame(frame);
+	function frame() {
+		const current=Date.now();
+		if(!last) last=current;
+		const dt=(current-last)/1000;
+		timer.update(dt);
+		ctx.beginPath();
+		ctx.fillStyle="black";
+		ctx.fillRect(0,0,c.width,c.height);
+		timer.draw();
+		last=current;
+		requestAnimationFrame(frame);
+	}
+}
+onload=main;
+</script>
+</body>
 </html>
