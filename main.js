@@ -92,6 +92,13 @@ function init() {
         usersRef.child(key).onDisconnect().remove();
         $(".login").hide();
         $(".main").show();
+        if(requestFullscreen) {
+          $(".main").requestFullscreen();
+        } else if (elem.mozRequestFullScreen) { /* Firefox */
+          $(".main").mozRequestFullScreen();
+        } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+          $(".main").webkitRequestFullscreen();
+        }
       }
     }
 
