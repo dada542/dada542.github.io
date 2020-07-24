@@ -95,7 +95,7 @@ input {
 .user-list {
     position: fixed;
     z-index: 1;
-    background: darkblue;
+    background: brown;
     color: white;
     width: 200px;
     height: 100vh;
