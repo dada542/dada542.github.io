@@ -36,7 +36,7 @@ input {
 }
 
 .main {
-    max-width: 800px;
+    max-width: 1000px;
     margin: auto;
 }
 
@@ -95,7 +95,8 @@ input {
 .user-list {
     position: fixed;
     z-index: 1;
-    background: white;
+    background: darkblue;
+    color: white;
     width: 200px;
     height: 100vh;
     right: 0;
