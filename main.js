@@ -629,7 +629,7 @@ function preload() {
         "tilemap": "https://raw.githubusercontent.com/dada542/just-platformer-game/main/mapa4.json",
         "music": "https://raw.githubusercontent.com/dada542/just-platformer-game/main/04%20-%20the%20croutonian%20ship.mp3"
     }).then(() => {
-        getLikes();
+        main();
     });
 }
 
