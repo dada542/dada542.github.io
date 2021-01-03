@@ -15,6 +15,7 @@ const Display = function(canvas) {
     }
 
     this.resize = function(event) {
+        alert(1);
 
         var width, height;
 
