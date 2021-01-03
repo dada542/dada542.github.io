@@ -21,8 +21,6 @@ const Display = function(canvas) {
         height = document.documentElement.clientHeight;
         width  = document.documentElement.clientWidth;
         
-        console.log(width, height);
-
         this.canvas.width = width;
         this.canvas.height = height;
 
