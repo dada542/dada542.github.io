@@ -15,8 +15,6 @@ const Engine = function(time_step, update, render) {
         this.accumulated_time += current_time - this.time;
         this.time = current_time;
 
-         console.log(this.accumulated_time);
-
         if(this.accumulated_time >= this.time_step * 3) {
             this.accumulated_time = this.time_step;
         }
