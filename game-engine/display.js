@@ -20,6 +20,8 @@ const Display = function(canvas) {
 
         height = document.documentElement.clientHeight;
         width  = document.documentElement.clientWidth;
+        
+        console.log(width, height);
 
         this.context.canvas.width = width;
         this.context.canvas.height = height;
@@ -28,7 +30,7 @@ const Display = function(canvas) {
 
     }
     
-    this.handleResize = (event) => { this.resize(event); console.log(1); }
+    this.handleResize = (event) => { this.resize(event); }
 
 }
 
