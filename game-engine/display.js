@@ -1,7 +1,7 @@
 const Display = function(canvas) {
 
     this.buffer = document.createElement("canvas").getContext("2d");
-    this.context = canvas.getContext("2d");
+    this.canvas = canvas;
 
     this.drawBackground = function(color) {
 
@@ -11,7 +11,7 @@ const Display = function(canvas) {
     }
 
     this.render = function() {
-        this.context.drawImage(this.buffer.canvas, 0, 0, this.buffer.canvas.width, this.buffer.canvas.height);
+        this.canvas.getContext("2d).drawImage(this.buffer.canvas, 0, 0, this.buffer.canvas.width, this.buffer.canvas.height);
     }
 
     this.resize = function(event) {
@@ -23,8 +23,8 @@ const Display = function(canvas) {
         
         console.log(width, height);
 
-        this.context.canvas.width = width;
-        this.context.canvas.height = height;
+        this.canvas.width = width;
+        this.canvas.height = height;
 
         this.render();
 
