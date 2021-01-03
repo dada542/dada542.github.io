@@ -18,8 +18,8 @@ const Display = function(canvas) {
 
         var width, height;
 
-        width = document.documentElement.clientWidth;
-        height = document.documentElement.clientHeight;
+        width = window.innerWidth;
+        height = window.innerHeight;
 
         this.context.canvas.width = width;
         this.context.canvas.height = height;
