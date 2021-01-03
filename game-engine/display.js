@@ -11,7 +11,7 @@ const Display = function(canvas) {
     }
 
     this.render = function() {
-        this.canvas.getContext("2d).drawImage(this.buffer.canvas, 0, 0, this.buffer.canvas.width, this.buffer.canvas.height);
+        this.canvas.getContext("2d").drawImage(this.buffer.canvas, 0, 0, this.buffer.canvas.width, this.buffer.canvas.height);
     }
 
     this.resize = function(event) {
