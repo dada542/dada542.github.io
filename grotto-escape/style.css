@@ -1,0 +1,92 @@
+* {
+     user-select: none;
+     -webkit-user-select: none;
+     -ms-user-select: none;
+ }
+
+body {
+    margin: 0;
+    background: black;
+}
+
+canvas {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 0;
+    border: 1px solid;
+}
+
+#loader {
+    position: absolute;
+    z-index: 100;
+    width: 100%;
+    height: 100%;
+    background: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+}
+
+#loader > span {
+    font-family: sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: white;
+    font-size: 16px;
+}
+
+#loader > h1 {
+    font-family: sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: gold;
+    font-size: 32px;
+}
+
+.button {
+    position: absolute;
+    z-index: 99;
+    width: 80px;
+    height: 80px;
+    background: grey;
+    opacity: 0.6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button > span {
+    font-size: 10px;
+    color: white;
+    text-transform: uppercase;
+    font-family: sans-serif;
+}
+
+#likes {
+    margin-top: 10px;
+}
+
+#button1 {
+    left: 10px;
+    bottom: 30px;
+}
+
+#button2 {
+    left: 100px;
+    bottom: 30px;
+}
+
+#button3 {
+    right: 100px;
+    bottom: 30px;
+    visibility: hidden;
+}
+
+#button4 {
+    right: 10px;
+    bottom: 30px;
+}
+
